@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FLTH</title>
+<script>
+  (function(){
+    try{
+      var pref = JSON.parse(localStorage.getItem('flth_theme') || '"system"');
+      var dark = pref === 'dark' || (pref === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches);
+      document.documentElement.setAttribute('data-theme', dark ? 'dark' : 'light');
+    }catch(e){}
+  })();
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="assets/css/variables.css">
+<link rel="stylesheet" href="assets/css/base.css">
+<link rel="stylesheet" href="assets/css/animations.css">
+<link rel="stylesheet" href="assets/css/components.css">
+<link rel="stylesheet" href="assets/css/layout.css">
+</head>
+<body data-i18n-doctitle="about.title">
+
+<a href="#main" class="skip-link">Skip to content</a>
+<div id="app-header"></div>
+
+<main id="main">
+  <div class="page-hero anim-fade-up">
+    <div class="container" style="max-width:760px;">
+      <span class="eyebrow" data-i18n="about.eyebrow"></span>
+      <h1 data-i18n="about.title"></h1>
+    </div>
+  </div>
+
+  <section>
+    <div class="container" style="max-width:760px;">
+      <p style="font-size:1.05rem;" data-i18n="about.p1"></p>
+      <p style="font-size:1.05rem;" data-i18n="about.p2"></p>
+
+      <div class="card" style="margin-top:36px;">
+        <h3 data-i18n="about.missionTitle"></h3>
+        <p class="mb-0" data-i18n="about.missionText"></p>
+      </div>
+
+      <h2 style="margin-top:56px;" data-i18n="about.valuesTitle"></h2>
+      <div class="grid-3">
+        <div class="feature-card">
+          <h3 data-i18n="about.v1t" style="font-size:1.05rem;"></h3>
+          <p data-i18n="about.v1d"></p>
+        </div>
+        <div class="feature-card">
+          <h3 data-i18n="about.v2t" style="font-size:1.05rem;"></h3>
+          <p data-i18n="about.v2d"></p>
+        </div>
+        <div class="feature-card">
+          <h3 data-i18n="about.v3t" style="font-size:1.05rem;"></h3>
+          <p data-i18n="about.v3d"></p>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<div id="app-footer"></div>
+
+<script type="module">
+  import { initShell } from './assets/js/app-shell.js';
+  initShell();
+</script>
+</body>
+</html>

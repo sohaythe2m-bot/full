@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FLTH</title>
+<script>
+  (function(){
+    try{
+      var pref = JSON.parse(localStorage.getItem('flth_theme') || '"system"');
+      var dark = pref === 'dark' || (pref === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches);
+      document.documentElement.setAttribute('data-theme', dark ? 'dark' : 'light');
+    }catch(e){}
+  })();
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="assets/css/variables.css">
+<link rel="stylesheet" href="assets/css/base.css">
+<link rel="stylesheet" href="assets/css/animations.css">
+<link rel="stylesheet" href="assets/css/components.css">
+<link rel="stylesheet" href="assets/css/layout.css">
+</head>
+<body data-i18n-doctitle="legal.termsTitle">
+
+<a href="#main" class="skip-link">Skip to content</a>
+<div id="app-header"></div>
+
+<main id="main">
+  <div class="page-hero anim-fade-up" style="padding-bottom:10px;">
+    <div class="container" style="max-width:760px;">
+      <h1 data-i18n="legal.termsTitle"></h1>
+      <p class="text-mute" id="lastUpdated" style="font-size:.85rem;"></p>
+    </div>
+  </div>
+  <section style="padding-top:10px;">
+    <div class="container" style="max-width:760px;">
+      <div class="alert alert--info" style="margin-bottom:30px;" data-i18n="legal.sampleNotice"></div>
+
+      <h3>1. Accounts</h3>
+      <p>You must provide accurate registration information and are responsible for keeping your password confidential. You are responsible for all activity under your account.</p>
+
+      <h3>2. Acceptable use</h3>
+      <p>You agree not to upload files that misrepresent their type, attempt to bypass upload validation, abuse the platform's rate limits, or use another person's account without permission.</p>
+
+      <h3>3. Content you submit</h3>
+      <p>You retain ownership of the profile information, resumes, and files you upload. By submitting them you grant FLTH the license needed to store and display that content back to you and, once your profile is complete, to companies using the platform.</p>
+
+      <h3>4. Verification</h3>
+      <p>Certain features may require a verified email address. We may send verification and account-related emails to the address on file.</p>
+
+      <h3>5. Termination</h3>
+      <p>We may suspend or deactivate accounts that violate these terms. You may stop using the service at any time.</p>
+
+      <h3>6. Disclaimer</h3>
+      <p>The service is provided "as is" during active development. Some modules described on the marketing pages (such as company job postings) are on the roadmap and not yet available — see the FAQ for what's live today.</p>
+
+      <h3>7. Contact</h3>
+      <p>Questions about these terms can be sent via the <a href="contact.html">contact page</a>.</p>
+    </div>
+  </section>
+</main>
+
+<div id="app-footer"></div>
+
+<script type="module">
+  import { initShell } from './assets/js/app-shell.js';
+  import { t, onLangChange } from './assets/js/modules/i18n.js';
+  import { qs } from './assets/js/utils/dom.js';
+  function setDate(){ qs('#lastUpdated').textContent = t('legal.lastUpdated', { date: '2026-07-06' }); }
+  initShell().then(() => { setDate(); onLangChange(setDate); });
+</script>
+</body>
+</html>

@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FLTH — لوحة اختبار الـ API</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="sheet-grid"></div>
+
+<div class="app">
+
+  <!-- ===================== الشريط العلوي ===================== -->
+  <header class="topbar">
+    <div class="brand">
+      <span class="brand-mark">FLTH</span>
+      <span class="brand-sub">لوحة اختبار الواجهة الخلفية</span>
+    </div>
+    <div class="baseurl-wrap">
+      <label for="baseUrlInput">رابط الخادم الأساسي</label>
+      <input id="baseUrlInput" type="text" value="http://localhost/flth-backend/public" spellcheck="false" dir="ltr">
+      <button class="btn small" id="saveBaseUrlBtn">حفظ</button>
+      <button class="btn small" id="pingBtn">فحص الاتصال</button>
+    </div>
+    <span class="status-pill" id="connPill">لم يتم الفحص</span>
+  </header>
+
+  <!-- ===================== الشريط الجانبي ===================== -->
+  <nav class="sidebar" id="sidebar">
+    <div class="group-label">تسجيل الدخول</div>
+    <button class="nav-btn active" data-target="sec-auth">
+      <span class="stamp-mini">AUTH</span> التسجيل / الدخول
+    </button>
+
+    <div class="group-label">الباحث عن عمل</div>
+    <button class="nav-btn" data-target="sec-profile">
+      <span class="stamp-mini">GET</span> الملف الشخصي والرفع
+    </button>
+    <button class="nav-btn" data-target="sec-skills">
+      <span class="stamp-mini">CRUD</span> المهارات
+    </button>
+    <button class="nav-btn" data-target="sec-education">
+      <span class="stamp-mini">CRUD</span> التعليم
+    </button>
+    <button class="nav-btn" data-target="sec-experience">
+      <span class="stamp-mini">CRUD</span> الخبرات
+    </button>
+    <button class="nav-btn" data-target="sec-certificates">
+      <span class="stamp-mini">CRUD</span> الشهادات
+    </button>
+    <button class="nav-btn" data-target="sec-projects">
+      <span class="stamp-mini">CRUD</span> المشاريع
+    </button>
+
+    <div class="group-label">فحص شامل</div>
+    <button class="nav-btn" data-target="sec-diagnostics">
+      <span class="stamp-mini">RUN</span> تشغيل فحص كامل
+    </button>
+  </nav>
+
+  <!-- ===================== المحتوى الرئيسي ===================== -->
+  <main class="main">
+
+    <!-- ============ قسم المصادقة ============ -->
+    <section class="panel-section active" id="sec-auth">
+      <div class="section-head">
+        <h2 class="section-title">وحدة تسجيل الدخول</h2>
+        <p class="section-desc">‎/api/v1/auth‎ — إنشاء حساب، دخول، خروج، تجديد الجلسة، استرجاع كلمة المرور، تفعيل البريد.</p>
+      </div>
+
+      <div class="grid-2">
+
+        <article class="card">
+          <h3><span class="method-tag post">POST</span> ‎/auth/register</h3>
+          <div class="field"><label>الاسم الكامل</label><input type="text" id="reg_full_name" value="مستخدم تجريبي"></div>
+          <div class="field"><label>البريد الإلكتروني</label><input type="text" id="reg_email" dir="ltr" placeholder="name@example.com"></div>
+          <div class="field"><label>كلمة المرور</label><input type="password" id="reg_password" value="Password123"></div>
+          <div class="field"><label>تأكيد كلمة المرور</label><input type="password" id="reg_password_confirmation" value="Password123"></div>
+          <div class="field">
+            <label>نوع الحساب</label>
+            <select id="reg_role">
+              <option value="job_seeker">باحث عن عمل</option>
+              <option value="company">شركة</option>
+            </select>
+          </div>
+          <div class="actions-row">
+            <button class="btn primary" id="btnRegister">إنشاء الحساب</button>
+            <button class="btn small" id="btnRandomEmail">توليد بريد عشوائي</button>
+          </div>
+          <div class="out" id="out_register">— لم يتم إرسال أي طلب بعد —</div>
+        </article>
+
+        <article class="card">
+          <h3><span class="method-tag post">POST</span> ‎/auth/login</h3>
+          <div class="field"><label>البريد الإلكتروني</label><input type="text" id="login_email" dir="ltr"></div>
+          <div class="field"><label>كلمة المرور</label><input type="password" id="login_password" value="Password123"></div>
+          <div class="actions-row"><button class="btn primary" id="btnLogin">تسجيل الدخول</button></div>
+          <div class="out" id="out_login">— لم يتم إرسال أي طلب بعد —</div>
+        </article>
+
+        <article class="card">
+          <h3><span class="method-tag post">POST</span> ‎/auth/logout <span class="hint">(يتطلب توكن)</span></h3>
+          <div class="field"><label>توكن التجديد (اختياري — اتركه فارغًا لإلغاء كل الجلسات)</label><input type="text" id="logout_refresh_token" dir="ltr"></div>
+          <div class="actions-row"><button class="btn" id="btnLogout">تسجيل الخروج</button></div>
+          <div class="out" id="out_logout">— لم يتم إرسال أي طلب بعد —</div>
+        </article>
+
+        <article class="card">
+          <h3><span class="method-tag post">POST</span> ‎/auth/refresh</h3>
+          <div class="field"><label>توكن التجديد</label><input type="text" id="refresh_token_input" dir="ltr"></div>
+          <div class="actions-row"><button class="btn" id="btnRefresh">تجديد التوكنات</button></div>
+          <div class="out" id="out_refresh">— لم يتم إرسال أي طلب بعد —</div>
+        </article>
+
+        <article class="card">
+          <h3><span class="method-tag post">POST</span> ‎/auth/forgot-password</h3>
+          <div class="field"><label>البريد الإلكتروني</label><input type="text" id="forgot_email" dir="ltr"></div>
+          <div class="actions-row"><button class="btn" id="btnForgot">إرسال رابط الاسترجاع</button></div>
+          <div class="out" id="out_forgot">— لم يتم إرسال أي طلب بعد —</div>
+        </article>
+
+        <article class="card">
+          <h3><span class="method-tag post">POST</span> ‎/auth/reset-password</h3>
+          <div class="field"><label>التوكن</label><input type="text" id="reset_token" dir="ltr"></div>
+          <div class="field"><label>كلمة المرور الجديدة</label><input type="password" id="reset_password" value="NewPassword123"></div>
+          <div class="field"><label>تأكيد كلمة المرور الجديدة</label><input type="password" id="reset_password_confirmation" value="NewPassword123"></div>
+          <div class="actions-row"><button class="btn" id="btnReset">إعادة تعيين كلمة المرور</button></div>
+          <div class="out" id="out_reset">— لم يتم إرسال أي طلب بعد —</div>
+        </article>
+
+        <article class="card">
+          <h3><span class="method-tag get">GET</span> ‎/auth/verify-email</h3>
+          <div class="field"><label>التوكن</label><input type="text" id="verify_token" dir="ltr"></div>
+          <div class="actions-row"><button class="btn" id="btnVerify">تفعيل البريد</button></div>
+          <div class="out" id="out_verify">— لم يتم إرسال أي طلب بعد —</div>
+        </article>
+
+        <article class="card">
+          <h3><span class="method-tag post">POST</span> ‎/auth/resend-verification</h3>
+          <div class="field"><label>البريد الإلكتروني</label><input type="text" id="resend_email" dir="ltr"></div>
+          <div class="actions-row"><button class="btn" id="btnResend">إعادة إرسال رابط التفعيل</button></div>
+          <div class="out" id="out_resend">— لم يتم إرسال أي طلب بعد —</div>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- ============ قسم الملف الشخصي ============ -->
+    <section class="panel-section" id="sec-profile">
+      <div class="section-head">
+        <h2 class="section-title">الملف الشخصي للباحث عن عمل</h2>
+        <p class="section-desc">‎/api/v1/profile‎ — يتطلب توكن دخول بصلاحية "باحث عن عمل".</p>
+      </div>
+
+      <article class="card">
+        <h3><span class="method-tag get">GET</span> ‎/profile/me</h3>
+        <div class="actions-row"><button class="btn primary" id="btnProfileMe">جلب ملفي الشخصي</button></div>
+        <div class="out" id="out_profile_me">— لم يتم إرسال أي طلب بعد —</div>
+      </article>
+
+      <article class="card">
+        <h3><span class="method-tag put">PUT</span> ‎/profile/me</h3>
+        <div class="grid-2">
+          <div class="field"><label>الاسم الكامل</label><input type="text" id="p_full_name"></div>
+          <div class="field"><label>الهاتف</label><input type="text" id="p_phone" dir="ltr"></div>
+          <div class="field"><label>العنوان الوظيفي</label><input type="text" id="p_headline"></div>
+          <div class="field"><label>الموقع الجغرافي</label><input type="text" id="p_location"></div>
+          <div class="field"><label>رابط GitHub</label><input type="url" id="p_github_url" dir="ltr"></div>
+          <div class="field"><label>رابط LinkedIn</label><input type="url" id="p_linkedin_url" dir="ltr"></div>
+          <div class="field"><label>رابط معرض الأعمال</label><input type="url" id="p_portfolio_url" dir="ltr"></div>
+          <div class="field"><label>اللغات</label><input type="text" id="p_languages" placeholder="العربية، الإنجليزية"></div>
+          <div class="field"><label>الحد الأدنى للراتب المتوقع</label><input type="number" id="p_expected_salary_min" dir="ltr"></div>
+          <div class="field"><label>الحد الأقصى للراتب المتوقع</label><input type="number" id="p_expected_salary_max" dir="ltr"></div>
+          <div class="field">
+            <label>نوع الوظيفة المفضل</label>
+            <select id="p_preferred_job_type">
+              <option value="">—</option>
+              <option value="full_time">دوام كامل</option>
+              <option value="part_time">دوام جزئي</option>
+              <option value="contract">عقد</option>
+              <option value="internship">تدريب</option>
+              <option value="remote">عن بُعد</option>
+            </select>
+          </div>
+          <div class="field checkbox"><input type="checkbox" id="p_open_to_work" checked><label for="p_open_to_work">متاح للعمل</label></div>
+        </div>
+        <div class="field"><label>نبذة تعريفية</label><textarea id="p_bio"></textarea></div>
+        <div class="actions-row"><button class="btn primary" id="btnProfileUpdate">حفظ الملف الشخصي</button></div>
+        <div class="out" id="out_profile_update">— لم يتم إرسال أي طلب بعد —</div>
+      </article>
+
+      <div class="grid-2">
+        <article class="card">
+          <h3><span class="method-tag post">POST</span> ‎/profile/avatar</h3>
+          <div class="field"><label>ملف صورة (jpg / jpeg / png / webp)</label><input type="file" id="avatar_file" accept=".jpg,.jpeg,.png,.webp"></div>
+          <div class="actions-row"><button class="btn" id="btnAvatar">رفع الصورة الشخصية</button></div>
+          <div class="out" id="out_avatar">— لم يتم إرسال أي طلب بعد —</div>
+        </article>
+        <article class="card">
+          <h3><span class="method-tag post">POST</span> ‎/profile/resume</h3>
+          <div class="field"><label>ملف PDF</label><input type="file" id="resume_file" accept=".pdf"></div>
+          <div class="actions-row"><button class="btn" id="btnResume">رفع السيرة الذاتية</button></div>
+          <div class="out" id="out_resume">— لم يتم إرسال أي طلب بعد —</div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ============ الموارد المولّدة تلقائيًا ============ -->
+    <section class="panel-section" id="sec-skills"></section>
+    <section class="panel-section" id="sec-education"></section>
+    <section class="panel-section" id="sec-experience"></section>
+    <section class="panel-section" id="sec-certificates"></section>
+    <section class="panel-section" id="sec-projects"></section>
+
+    <!-- ============ الفحص الشامل ============ -->
+    <section class="panel-section" id="sec-diagnostics">
+      <div class="section-head">
+        <h2 class="section-title">تشغيل فحص شامل</h2>
+        <p class="section-desc">ينشئ حساب باحث عن عمل مؤقت ويجرّب دورة الطلبات كاملة: تسجيل ← دخول ← ملف شخصي ← مهارات (إنشاء/قراءة/تعديل/حذف) ← تجديد ← خروج.</p>
+      </div>
+      <article class="card">
+        <div class="actions-row"><button class="btn primary" id="btnRunDiag">تشغيل الفحص</button></div>
+        <div id="diagSteps" class="diag-steps"></div>
+        <div id="diagSummary"></div>
+      </article>
+    </section>
+
+  </main>
+
+  <!-- ===================== اللوحة اليمنى ===================== -->
+  <aside class="rail">
+    <div class="session-box">
+      <h3>الجلسة الحالية</h3>
+      <div class="session-row"><span class="k">المستخدم</span><span class="v empty" id="sess_user">لا يوجد</span></div>
+      <div class="session-row"><span class="k">الصلاحية</span><span class="v empty" id="sess_role">—</span></div>
+      <div class="session-row"><span class="k">توكن الدخول</span><span class="v empty" id="sess_access">لا يوجد</span></div>
+      <div class="session-row"><span class="k">توكن التجديد</span><span class="v empty" id="sess_refresh">لا يوجد</span></div>
+      <div class="actions-row"><button class="btn small danger" id="btnClearSession">إنهاء الجلسة</button></div>
+    </div>
+    <div class="log-header">
+      <h3>سجل الطلبات</h3>
+      <button class="btn small" id="btnClearLog">تفريغ</button>
+    </div>
+    <div class="log-list" id="logList"></div>
+  </aside>
+
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

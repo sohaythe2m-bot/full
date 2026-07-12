@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FLTH</title>
+<script>
+  (function(){
+    try{
+      var pref = JSON.parse(localStorage.getItem('flth_theme') || '"system"');
+      var dark = pref === 'dark' || (pref === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches);
+      document.documentElement.setAttribute('data-theme', dark ? 'dark' : 'light');
+    }catch(e){}
+  })();
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="assets/css/variables.css">
+<link rel="stylesheet" href="assets/css/base.css">
+<link rel="stylesheet" href="assets/css/animations.css">
+<link rel="stylesheet" href="assets/css/components.css">
+<link rel="stylesheet" href="assets/css/layout.css">
+</head>
+<body data-i18n-doctitle="profile.title">
+
+<a href="#main" class="skip-link">Skip to content</a>
+<div id="app-header"></div>
+
+<main id="main">
+  <div class="container dash-shell">
+    <aside class="dash-sidebar" id="dash-sidebar" aria-label="Dashboard navigation"></aside>
+
+    <section class="dash-main">
+      <div class="dash-page-head anim-fade-up">
+        <div>
+          <h1 data-i18n="profile.title"></h1>
+          <p data-i18n="profile.subtitle"></p>
+        </div>
+      </div>
+
+      <div class="card anim-fade-up" id="avatar">
+        <div class="card-head"><h3 data-i18n="profile.sectionAvatar"></h3></div>
+        <div class="flex items-center gap-24 flex-wrap">
+          <span class="avatar avatar--lg" id="currentAvatar">?</span>
+          <div style="flex:1;min-width:240px;" id="avatarDropzone"></div>
+        </div>
+      </div>
+
+      <div class="card anim-fade-up" id="resume">
+        <div class="card-head"><h3 data-i18n="profile.sectionResume"></h3></div>
+        <div id="resumeDropzone"></div>
+      </div>
+
+      <div class="card anim-fade-up" id="details">
+        <div class="card-head"><h3 data-i18n="profile.sectionDetails"></h3></div>
+        <form id="detailsForm" novalidate>
+          <div class="grid-2">
+            <div class="field">
+              <label for="full_name" data-i18n="profile.fullName"></label>
+              <input class="input" type="text" id="full_name" name="full_name">
+              <div class="field-error" id="err_full_name"></div>
+            </div>
+            <div class="field">
+              <label for="phone" data-i18n="profile.phone"></label>
+              <input class="input" type="text" id="phone" name="phone" dir="ltr">
+              <div class="field-error" id="err_phone"></div>
+            </div>
+            <div class="field">
+              <label for="headline" data-i18n="profile.headline"></label>
+              <input class="input" type="text" id="headline" name="headline" data-i18n-placeholder="profile.headlinePlaceholder">
+              <div class="field-error" id="err_headline"></div>
+            </div>
+            <div class="field">
+              <label for="location" data-i18n="profile.location"></label>
+              <input class="input" type="text" id="location" name="location" data-i18n-placeholder="profile.locationPlaceholder">
+            </div>
+            <div class="field">
+              <label for="github_url" data-i18n="profile.githubUrl"></label>
+              <input class="input" type="url" id="github_url" name="github_url" dir="ltr">
+              <div class="field-error" id="err_github_url"></div>
+            </div>
+            <div class="field">
+              <label for="linkedin_url" data-i18n="profile.linkedinUrl"></label>
+              <input class="input" type="url" id="linkedin_url" name="linkedin_url" dir="ltr">
+              <div class="field-error" id="err_linkedin_url"></div>
+            </div>
+            <div class="field">
+              <label for="portfolio_url" data-i18n="profile.portfolioUrl"></label>
+              <input class="input" type="url" id="portfolio_url" name="portfolio_url" dir="ltr">
+              <div class="field-error" id="err_portfolio_url"></div>
+            </div>
+            <div class="field">
+              <label for="languages" data-i18n="profile.languages"></label>
+              <input class="input" type="text" id="languages" name="languages" data-i18n-placeholder="profile.languagesPlaceholder">
+            </div>
+            <div class="field">
+              <label for="salary_min" data-i18n="profile.salaryMin"></label>
+              <input class="input" type="number" id="salary_min" name="expected_salary_min" dir="ltr">
+              <div class="field-error" id="err_expected_salary_min"></div>
+            </div>
+            <div class="field">
+              <label for="salary_max" data-i18n="profile.salaryMax"></label>
+              <input class="input" type="number" id="salary_max" name="expected_salary_max" dir="ltr">
+              <div class="field-error" id="err_expected_salary_max"></div>
+            </div>
+            <div class="field">
+              <label for="preferred_job_type" data-i18n="profile.preferredJobType"></label>
+              <select class="select" id="preferred_job_type" name="preferred_job_type">
+                <option value="">—</option>
+                <option value="full_time" data-i18n="profile.jobTypeFullTime"></option>
+                <option value="part_time" data-i18n="profile.jobTypePartTime"></option>
+                <option value="contract" data-i18n="profile.jobTypeContract"></option>
+                <option value="internship" data-i18n="profile.jobTypeInternship"></option>
+                <option value="remote" data-i18n="profile.jobTypeRemote"></option>
+              </select>
+            </div>
+            <div class="field checkbox-row" style="align-self:end;">
+              <input type="checkbox" id="open_to_work" name="open_to_work">
+              <label for="open_to_work" data-i18n="profile.openToWork"></label>
+            </div>
+          </div>
+          <div class="field">
+            <label for="bio" data-i18n="profile.bio"></label>
+            <textarea class="textarea" id="bio" name="bio" data-i18n-placeholder="profile.bioPlaceholder"></textarea>
+          </div>
+          <button type="submit" class="btn btn--primary" id="detailsSubmitBtn">
+            <span id="detailsSubmitLabel" data-i18n="common.save"></span>
+          </button>
+        </form>
+      </div>
+
+      <div id="skillsMount"></div>
+      <div id="educationMount"></div>
+      <div id="experienceMount"></div>
+      <div id="certificatesMount"></div>
+      <div id="projectsMount"></div>
+    </section>
+  </div>
+</main>
+
+<div id="app-footer"></div>
+
+<script type="module">
+  import { initShell } from './assets/js/app-shell.js';
+  import { runProfilePage } from './assets/js/pages/profile.js';
+  initShell().then(runProfilePage);
+</script>
+</body>
+</html>

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FLTH</title>
+<script>
+  (function(){
+    try{
+      var pref = JSON.parse(localStorage.getItem('flth_theme') || '"system"');
+      var dark = pref === 'dark' || (pref === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches);
+      document.documentElement.setAttribute('data-theme', dark ? 'dark' : 'light');
+    }catch(e){}
+  })();
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="assets/css/variables.css">
+<link rel="stylesheet" href="assets/css/base.css">
+<link rel="stylesheet" href="assets/css/animations.css">
+<link rel="stylesheet" href="assets/css/components.css">
+<link rel="stylesheet" href="assets/css/layout.css">
+</head>
+<body data-i18n-doctitle="auth.registerTitle">
+
+<a href="#main" class="skip-link">Skip to content</a>
+<div id="app-header"></div>
+
+<main id="main">
+  <div class="auth-shell">
+    <section class="auth-visual" aria-hidden="true">
+      <span class="brand"><span data-i18n="common.brandFrom">FL</span><span class="dot">·</span><span data-i18n="common.brandTo">TH</span></span>
+      <div>
+        <p class="quote" data-i18n="auth.quote"></p>
+        <p class="quote-by" data-i18n="auth.quoteBy"></p>
+      </div>
+      <div class="visual-stats">
+        <div><b data-i18n="auth.statCandidates"></b><span data-i18n="auth.statCandidatesLabel"></span></div>
+        <div><b data-i18n="auth.statCompanies"></b><span data-i18n="auth.statCompaniesLabel"></span></div>
+      </div>
+    </section>
+
+    <section class="auth-form-side">
+      <div class="auth-card anim-fade-up">
+        <a href="index.html" class="auth-back">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span data-i18n="common.backHome"></span>
+        </a>
+        <h1 data-i18n="auth.registerTitle"></h1>
+        <p data-i18n="auth.registerSubtitle"></p>
+
+        <form id="registerForm" novalidate>
+          <div class="field">
+            <label for="full_name" data-i18n="auth.fullName"></label>
+            <input class="input" type="text" id="full_name" name="full_name" autocomplete="name" data-i18n-placeholder="auth.fullNamePlaceholder" required>
+            <div class="field-error" id="err_full_name"></div>
+          </div>
+
+          <div class="field">
+            <label for="email" data-i18n="auth.email"></label>
+            <input class="input" type="email" id="email" name="email" autocomplete="email" data-i18n-placeholder="auth.emailPlaceholder" required>
+            <div class="field-error" id="err_email"></div>
+          </div>
+
+          <div class="field">
+            <label for="password" data-i18n="auth.password"></label>
+            <input class="input" type="password" id="password" name="password" autocomplete="new-password" data-i18n-placeholder="auth.passwordPlaceholder" required>
+            <div class="password-strength" id="strengthBar" data-score="0"><span></span><span></span><span></span><span></span></div>
+            <div class="password-strength-label" id="strengthLabel"></div>
+            <div class="field-error" id="err_password"></div>
+          </div>
+
+          <div class="field">
+            <label for="password_confirmation" data-i18n="auth.confirmPassword"></label>
+            <input class="input" type="password" id="password_confirmation" name="password_confirmation" autocomplete="new-password" data-i18n-placeholder="auth.confirmPasswordPlaceholder" required>
+            <div class="field-error" id="err_password_confirmation"></div>
+          </div>
+
+          <div class="field">
+            <label data-i18n="auth.role"></label>
+            <select class="select" id="role" name="role" required>
+              <option value="job_seeker" data-i18n="auth.roleJobSeeker"></option>
+              <option value="company" data-i18n="auth.roleCompany"></option>
+            </select>
+          </div>
+
+          <button type="submit" class="btn btn--primary btn--block btn--lg" id="submitBtn">
+            <span id="submitLabel" data-i18n="auth.registerSubmit"></span>
+          </button>
+
+          <p class="hint" style="text-align:center;margin-top:14px;">
+            <span data-i18n="auth.agreeTerms"></span>
+            <a href="terms.html" data-i18n="footer.terms"></a>
+          </p>
+        </form>
+
+        <p class="top-link"><span data-i18n="auth.haveAccount"></span> <a href="login.html" data-i18n="auth.logIn"></a></p>
+      </div>
+    </section>
+  </div>
+</main>
+
+<div id="app-footer"></div>
+
+<script type="module">
+  import { initShell } from './assets/js/app-shell.js';
+  import { runRegisterPage } from './assets/js/pages/register.js';
+  initShell().then(runRegisterPage);
+</script>
+</body>
+</html>

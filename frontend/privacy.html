@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FLTH</title>
+<script>
+  (function(){
+    try{
+      var pref = JSON.parse(localStorage.getItem('flth_theme') || '"system"');
+      var dark = pref === 'dark' || (pref === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches);
+      document.documentElement.setAttribute('data-theme', dark ? 'dark' : 'light');
+    }catch(e){}
+  })();
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="assets/css/variables.css">
+<link rel="stylesheet" href="assets/css/base.css">
+<link rel="stylesheet" href="assets/css/animations.css">
+<link rel="stylesheet" href="assets/css/components.css">
+<link rel="stylesheet" href="assets/css/layout.css">
+</head>
+<body data-i18n-doctitle="legal.privacyTitle">
+
+<a href="#main" class="skip-link">Skip to content</a>
+<div id="app-header"></div>
+
+<main id="main">
+  <div class="page-hero anim-fade-up" style="padding-bottom:10px;">
+    <div class="container" style="max-width:760px;">
+      <h1 data-i18n="legal.privacyTitle"></h1>
+      <p class="text-mute" id="lastUpdated" style="font-size:.85rem;"></p>
+    </div>
+  </div>
+  <section style="padding-top:10px;">
+    <div class="container" style="max-width:760px;">
+      <div class="alert alert--info" style="margin-bottom:30px;" data-i18n="legal.sampleNotice"></div>
+
+      <h3>1. Information we collect</h3>
+      <p>When you create an FLTH account we collect your full name, email address, and password (stored as a bcrypt hash, never in plain text). As you build your candidate profile you may add a phone number, headline, biography, location, social links, skills, education, work experience, certificates, projects, a profile photo, and a resume file.</p>
+
+      <h3>2. How we use your information</h3>
+      <p>We use your information to operate your account (authentication via JWT access and refresh tokens), to display your candidate profile, to send transactional emails such as email verification and password reset links, and to enforce reasonable rate limits that protect the platform from abuse.</p>
+
+      <h3>3. File uploads</h3>
+      <p>Profile photos and resumes are validated by their real file content (not just their extension) before being stored, and are served back to you from the platform's uploads directory under a randomized filename.</p>
+
+      <h3>4. Data retention & deletion</h3>
+      <p>Records you remove from your profile (skills, education, experience, certificates, projects) are soft-deleted, meaning they are hidden from you and from companies immediately, and permanently purged on a schedule managed by the FLTH team.</p>
+
+      <h3>5. Security</h3>
+      <p>Passwords are hashed with bcrypt. Sessions use short-lived JWT access tokens paired with longer-lived, hashed, and revocable refresh tokens that rotate on every use. All API traffic should be served over HTTPS in production.</p>
+
+      <h3>6. Your rights</h3>
+      <p>You can update or delete most of your profile information directly from your dashboard at any time. For account deletion requests beyond what the self-service tools cover, contact us via the <a href="contact.html">contact page</a>.</p>
+
+      <h3>7. Contact</h3>
+      <p>Questions about this policy can be sent to support@flth.example.</p>
+    </div>
+  </section>
+</main>
+
+<div id="app-footer"></div>
+
+<script type="module">
+  import { initShell } from './assets/js/app-shell.js';
+  import { t, onLangChange } from './assets/js/modules/i18n.js';
+  import { qs } from './assets/js/utils/dom.js';
+  function setDate(){ qs('#lastUpdated').textContent = t('legal.lastUpdated', { date: '2026-07-06' }); }
+  initShell().then(() => { setDate(); onLangChange(setDate); });
+</script>
+</body>
+</html>

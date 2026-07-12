@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FLTH</title>
+<script>
+  (function(){
+    try{
+      var pref = JSON.parse(localStorage.getItem('flth_theme') || '"system"');
+      var dark = pref === 'dark' || (pref === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches);
+      document.documentElement.setAttribute('data-theme', dark ? 'dark' : 'light');
+    }catch(e){}
+  })();
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="assets/css/variables.css">
+<link rel="stylesheet" href="assets/css/base.css">
+<link rel="stylesheet" href="assets/css/animations.css">
+<link rel="stylesheet" href="assets/css/components.css">
+<link rel="stylesheet" href="assets/css/layout.css">
+</head>
+<body data-i18n-doctitle="auth.verifyTitle">
+
+<a href="#main" class="skip-link">Skip to content</a>
+<div id="app-header"></div>
+
+<main id="main">
+  <div class="auth-shell" style="grid-template-columns:1fr;">
+    <section class="auth-form-side">
+      <div class="auth-card anim-fade-up" style="text-align:center;">
+        <div id="verifyState">
+          <div class="spinner" style="width:34px;height:34px;border-width:3px;color:var(--accent);margin:0 auto 18px;"></div>
+          <h1 data-i18n="auth.verifyTitle"></h1>
+          <p data-i18n="auth.verifySubtitle"></p>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top:20px;" id="resendCard">
+        <h3 data-i18n="auth.resendTitle" style="font-size:1rem;"></h3>
+        <form id="resendForm" novalidate style="margin-top:14px;">
+          <div class="field">
+            <label for="email" class="visually-hidden" data-i18n="auth.email"></label>
+            <input class="input" type="email" id="email" name="email" data-i18n-placeholder="auth.resendEmailPlaceholder" required>
+            <div class="field-error" id="err_email"></div>
+          </div>
+          <button type="submit" class="btn btn--outline btn--block" id="resendBtn">
+            <span id="resendLabel" data-i18n="auth.resendSubmit"></span>
+          </button>
+        </form>
+      </div>
+    </section>
+  </div>
+</main>
+
+<div id="app-footer"></div>
+
+<script type="module">
+  import { initShell } from './assets/js/app-shell.js';
+  import { runVerifyEmailPage } from './assets/js/pages/verify-email.js';
+  initShell().then(runVerifyEmailPage);
+</script>
+</body>
+</html>

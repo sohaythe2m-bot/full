@@ -1,0 +1,10 @@
+POST http://localhost/flth-backend/public/api/v1/auth/register
+Content-Type: application/json
+
+{
+  "full_name": "Test User",
+  "email": "test52@example.com",
+  "password": "Password123",
+  "password_confirmation": "Password123",
+  "role": "job_seeker"
+}

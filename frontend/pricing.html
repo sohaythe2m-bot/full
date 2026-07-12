@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FLTH</title>
+<script>
+  (function(){
+    try{
+      var pref = JSON.parse(localStorage.getItem('flth_theme') || '"system"');
+      var dark = pref === 'dark' || (pref === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches);
+      document.documentElement.setAttribute('data-theme', dark ? 'dark' : 'light');
+    }catch(e){}
+  })();
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="assets/css/variables.css">
+<link rel="stylesheet" href="assets/css/base.css">
+<link rel="stylesheet" href="assets/css/animations.css">
+<link rel="stylesheet" href="assets/css/components.css">
+<link rel="stylesheet" href="assets/css/layout.css">
+<link rel="stylesheet" href="assets/css/pages/landing.css">
+</head>
+<body data-i18n-doctitle="pricing.title">
+
+<a href="#main" class="skip-link">Skip to content</a>
+<div id="app-header"></div>
+
+<main id="main">
+  <div class="page-hero anim-fade-up">
+    <div class="container">
+      <span class="eyebrow" data-i18n="pricing.eyebrow"></span>
+      <h1 data-i18n="pricing.title"></h1>
+      <p data-i18n="pricing.subtitle"></p>
+    </div>
+  </div>
+
+  <section>
+    <div class="container">
+      <div class="pricing-grid stagger">
+        <div class="price-card">
+          <h3 data-i18n="pricing.freeTitle"></h3>
+          <p data-i18n="pricing.freeDesc"></p>
+          <div class="amount">$<span data-i18n="pricing.freePrice"></span></div>
+          <ul>
+            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M20 6 9 17l-5-5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span data-i18n="pricing.f1"></span></li>
+            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M20 6 9 17l-5-5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span data-i18n="pricing.f2"></span></li>
+            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M20 6 9 17l-5-5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span data-i18n="pricing.f3"></span></li>
+          </ul>
+          <a href="register.html" class="btn btn--ink btn--block" data-i18n="pricing.freeCta"></a>
+        </div>
+
+        <div class="price-card featured">
+          <span class="ribbon">Popular</span>
+          <h3 data-i18n="pricing.growthTitle"></h3>
+          <p data-i18n="pricing.growthDesc"></p>
+          <div class="amount">$<span data-i18n="pricing.growthPrice"></span> <span data-i18n="pricing.perMonth"></span></div>
+          <ul>
+            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M20 6 9 17l-5-5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span data-i18n="pricing.f4"></span></li>
+            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M20 6 9 17l-5-5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span data-i18n="pricing.f5"></span></li>
+            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M20 6 9 17l-5-5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span data-i18n="pricing.f6"></span></li>
+          </ul>
+          <a href="contact.html" class="btn btn--primary btn--block" data-i18n="pricing.growthCta"></a>
+        </div>
+
+        <div class="price-card">
+          <h3 data-i18n="pricing.scaleTitle"></h3>
+          <p data-i18n="pricing.scaleDesc"></p>
+          <div class="amount">$<span data-i18n="pricing.scalePrice"></span> <span data-i18n="pricing.perMonth"></span></div>
+          <ul>
+            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M20 6 9 17l-5-5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span data-i18n="pricing.f7"></span></li>
+            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M20 6 9 17l-5-5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span data-i18n="pricing.f8"></span></li>
+            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M20 6 9 17l-5-5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span data-i18n="pricing.f9"></span></li>
+          </ul>
+          <a href="contact.html" class="btn btn--ink btn--block" data-i18n="pricing.scaleCta"></a>
+        </div>
+      </div>
+      <p class="text-mute" style="text-align:center;margin-top:26px;font-size:.82rem;" data-i18n="pricing.roadmapNote"></p>
+    </div>
+  </section>
+</main>
+
+<div id="app-footer"></div>
+
+<script type="module">
+  import { initShell } from './assets/js/app-shell.js';
+  initShell();
+</script>
+</body>
+</html>
